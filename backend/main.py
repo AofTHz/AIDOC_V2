@@ -37,6 +37,15 @@ load_dotenv()
 async def lifespan(app: FastAPI): #เป็นฟังชั่นที่จะทำงานเมื่อเริ่มต้นทำงาน
     create_db_and_tables()        #เรียกใช้งาน ฟังชัน สร้างฐานข้อมูล
 
+    # Clean up stale tasks from previous runs
+    temp_base = pathlib.Path("database/temp")
+    if temp_base.exists():
+        for task_folder in temp_base.iterdir():
+            if task_folder.is_dir():
+                logger.info(f"Cleaning up stale task folder: {task_folder.name}")
+                import shutil
+                shutil.rmtree(task_folder, ignore_errors=True)
+
     session_gen = get_session()
     session = next(session_gen)  #สร้าง Session สำหรับคำสั่งถัดไป
 
@@ -60,7 +69,10 @@ origin = [
     "http://localhost:5000",
     "http://127.0.0.1:8080",
     "http://127.0.0.1:5000",
-    "http://127.0.0.1"
+    "http://127.0.0.1",
+    "http://35.197.133.237",
+    "http://35.197.133.237:8080",
+    "http://35.197.133.237:5000"
 ]
 
 app.add_middleware(

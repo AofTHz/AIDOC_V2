@@ -6,7 +6,7 @@ services:
       context: ./AA_Project
       dockerfile: Dockerfile
       args:
-        - BACKEND_URL=http://localhost:5000
+        - BACKEND_URL=http://35.197.133.237:5000
     container_name: php_frontend
     restart: always
     volumes:
