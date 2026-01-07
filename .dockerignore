@@ -1,0 +1,15 @@
+# Ignore SQLite database
+backend/database.db
+
+# Ignore compiled Python files & cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+venv/
+.env
+
+# Ignore temp files & logs
+*.log
+database/temp/
